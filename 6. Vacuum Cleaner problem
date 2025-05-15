@@ -1,0 +1,16 @@
+def vacuum_world():
+    state = {'A': 'dirty', 'B': 'dirty'}
+    location = 'A'
+    steps = []
+    while 'dirty' in state.values():
+        if state[location] == 'dirty':
+            state[location] = 'clean'
+            steps.append(f"Cleaned {location}")
+        else:
+            steps.append(f"{location} is already clean")
+        location = 'B' if location == 'A' else 'A'
+    for s in steps:
+        print(s)
+    print("Final State:", state)
+
+vacuum_world()
