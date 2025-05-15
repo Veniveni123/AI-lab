@@ -1,0 +1,22 @@
+from collections import deque
+
+def water_jug_problem():
+    visited = set()
+    queue = deque()
+    queue.append((0, 0))
+    while queue:
+        a, b = queue.popleft()
+        if (a, b) in visited:
+            continue
+        visited.add((a, b))
+        print(f"Jug A: {a}L, Jug B: {b}L")
+        if a == 2:
+            break
+        queue.append((4, b))
+        queue.append((a, 3))
+        queue.append((0, b))
+        queue.append((a, 0))
+        queue.append((min(a + b, 4), b - (min(a + b, 4) - a)))
+        queue.append((a - (min(a + b, 3) - b), min(a + b, 3)))
+
+water_jug_problem()
