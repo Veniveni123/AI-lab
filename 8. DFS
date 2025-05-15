@@ -1,0 +1,20 @@
+def dfs():
+    start_state = {'A': 'dirty', 'B': 'dirty'}
+    start_location = 'A'
+    stack = []
+    stack.append((start_state, start_location, []))
+    visited = set()
+    while stack:
+        state, location, path = stack.pop()
+        state_tuple = (state['A'], state['B'], location)
+        if state_tuple in visited:
+            continue
+        visited.add(state_tuple)
+        if is_goal(state):
+            for action in path:
+                print(action)
+            return
+        for new_state, new_location, action in reversed(get_neighbors(state, location)):
+            stack.append((new_state, new_location, path + [action]))
+
+dfs()
