@@ -1,0 +1,35 @@
+from collections import deque
+
+def is_goal(state):
+    return state['A'] == 'clean' and state['B'] == 'clean'
+
+def get_neighbors(state, location):
+    neighbors = []
+    if state[location] == 'dirty':
+        new_state = state.copy()
+        new_state[location] = 'clean'
+        neighbors.append((new_state, location, f"Clean {location}"))
+    other = 'B' if location == 'A' else 'A'
+    neighbors.append((state.copy(), other, f"Move to {other}"))
+    return neighbors
+
+def bfs():
+    start_state = {'A': 'dirty', 'B': 'dirty'}
+    start_location = 'A'
+    queue = deque()
+    queue.append((start_state, start_location, []))
+    visited = set()
+    while queue:
+        state, location, path = queue.popleft()
+        state_tuple = (state['A'], state['B'], location)
+        if state_tuple in visited:
+            continue
+        visited.add(state_tuple)
+        if is_goal(state):
+            for action in path:
+                print(action)
+            return
+        for new_state, new_location, action in get_neighbors(state, location):
+            queue.append((new_state, new_location, path + [action]))
+
+bfs()
