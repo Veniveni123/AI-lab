@@ -1,0 +1,35 @@
+% Facts: student(Name).
+student(alice).
+student(bob).
+student(charlie).
+
+% Facts: teacher(Name).
+teacher(mr_smith).
+teacher(ms_jones).
+
+% Facts: subject(SubjectName, SubjectCode).
+subject(math, m101).
+subject(science, s102).
+subject(history, h103).
+
+% Facts: teaches(Teacher, SubjectCode).
+teaches(mr_smith, m101).
+teaches(ms_jones, s102).
+teaches(mr_smith, h103).
+
+% Facts: enrolled(Student, SubjectCode).
+enrolled(alice, m101).
+enrolled(bob, s102).
+enrolled(charlie, h103).
+enrolled(alice, s102).
+
+% Query examples:
+% Who teaches math?
+% ?- subject(math, Code), teaches(Teacher, Code).
+
+% Which subjects is Alice enrolled in?
+% ?- enrolled(alice, Code), subject(Subject, Code).
+
+% Is Bob taught by Mr. Smith?
+% ?- enrolled(bob, Code), teaches(mr_smith, Code).
+
