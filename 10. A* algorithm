@@ -1,0 +1,35 @@
+import heapq
+
+def a_star(start, goal, graph, heuristic):
+    open_set = []
+    heapq.heappush(open_set, (0 + heuristic[start], 0, start, [start]))
+    closed_set = set()
+    while open_set:
+        f, g, current, path = heapq.heappop(open_set)
+        if current == goal:
+            return path, g
+        if current in closed_set:
+            continue
+        closed_set.add(current)
+        for neighbor, cost in graph[current]:
+            if neighbor in closed_set:
+                continue
+            g_new = g + cost
+            f_new = g_new + heuristic[neighbor]
+            heapq.heappush(open_set, (f_new, g_new, neighbor, path + [neighbor]))
+    return None, float('inf')
+
+# Example graph as adjacency list: node -> [(neighbor, cost), ...]
+graph = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('A', 1), ('C', 2), ('D', 5)],
+    'C': [('A', 4), ('B', 2), ('D', 1)],
+    'D': [('B', 5), ('C', 1)]
+}
+
+# Heuristic values (straight-line distances to goal 'D')
+heuristic = {'A': 7, 'B': 6, 'C': 2, 'D': 0}
+
+path, cost = a_star('A', 'D', graph, heuristic)
+print("Path:", path)
+print("Cost:", cost)
