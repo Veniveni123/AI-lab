@@ -1,0 +1,12 @@
+% Facts: person(Name, dob(Year, Month, Day)).
+
+person(john, dob(1990, 5, 21)).
+person(mary, dob(1985, 12, 10)).
+person(alex, dob(2000, 1, 15)).
+
+% Query example: Find DOB by name
+% ?- person(john, DOB).
+
+% Query example: Find people born in a certain year
+born_in_year(Year, Name) :-
+    person(Name, dob(Year, _, _)).
